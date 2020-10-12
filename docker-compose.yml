@@ -1,0 +1,20 @@
+version: '2'  
+  
+services:  
+  
+  egoweb:  
+    image: acspri/egoweb:739b732e6fba6278e4b48bfa7db0fb5bf94a054a
+    build: .
+    ports:  
+      - 127.0.0.1:8092:80  
+    environment:  
+      EGOWEB_DB_PASSWORD: example  
+    restart: unless-stopped
+  
+  mysql:  
+    image: mariadb  
+    volumes:  
+       - ./mysql:/var/lib/mysql
+    environment:  
+      MYSQL_ROOT_PASSWORD: example  
+    restart: unless-stopped
