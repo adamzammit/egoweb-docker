@@ -6,7 +6,7 @@ services:
     image: acspri/egoweb:739b732
     build: .
     ports:  
-      - 127.0.0.1:8092:80  
+      - 8092:80
     environment:  
       EGOWEB_DB_PASSWORD: example  
     restart: unless-stopped
