@@ -3,7 +3,7 @@ version: '2'
 services:  
   
   egoweb:  
-    image: acspri/egoweb:739b732e6fba6278e4b48bfa7db0fb5bf94a054a
+    image: acspri/egoweb:739b732
     build: .
     ports:  
       - 127.0.0.1:8092:80  
