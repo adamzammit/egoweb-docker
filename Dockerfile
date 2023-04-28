@@ -1,13 +1,13 @@
-FROM php:7.3-apache
+FROM php:8.0-apache
 
-ENV DOWNLOAD_URL https://github.com/qualintitative/egoweb/archive/739b732e6fba6278e4b48bfa7db0fb5bf94a054a.zip
+ENV DOWNLOAD_URL https://github.com/qualintitative/egoweb/archive/215700eade32e387d3a50db89275fb8dd1249478.zip
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y unzip libmcrypt-dev libpng-dev libjpeg-dev mariadb-client && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-    && pecl install mcrypt-1.0.3 \
+RUN apt-get update && apt-get install -y unzip libmcrypt-dev libpng-dev libjpeg-dev mariadb-client libfreetype6-dev libicu-dev && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-configure gd --with-jpeg=/usr -with-freetype=/usr/include/ \
+    && pecl install mcrypt-1.0.6 \
     && docker-php-ext-enable mcrypt \
-    && docker-php-ext-install gd mysqli opcache pdo pdo_mysql
+    && docker-php-ext-install gd mysqli opcache pdo pdo_mysql iconv intl
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -38,6 +38,7 @@ RUN { \
         echo 'max_execution_time=120'; \
         echo 'max_input_vars=10000'; \
         echo 'date.timezone=UTC'; \
+        echo 'expose_php=Off'; \
     } > /usr/local/etc/php/conf.d/uploads.ini
 
 VOLUME ["/var/www/html/protected/config"]

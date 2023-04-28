@@ -63,7 +63,7 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
         sed -i "/'$key'/s/>\(.*\)/>$value,/1"  protected/config/main.php
     }
 
-    set_config 'connectionString' "'mysql:host=$EGOWEB_DB_HOST;port=3306;dbname=$EGOWEB_DB_NAME;'"
+    set_config 'dsn' "'mysql:host=$EGOWEB_DB_HOST;dbname=$EGOWEB_DB_NAME'"
     set_config 'username' "'$EGOWEB_DB_USER'"
     set_config 'password' "'$EGOWEB_DB_PASSWORD'"
 
